@@ -1,5 +1,5 @@
-from textnode import TextNode, TextType
 import re
+from textnode import TextNode, TextType
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_list = []
@@ -113,4 +113,5 @@ def text_to_textnodes(text):
     return split_nodes_link(nodes_output)
     
 
-#old_nodes, delimiter, text_type
+
+
