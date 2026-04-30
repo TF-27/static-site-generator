@@ -1,6 +1,6 @@
 from enum import Enum
 import re
-import textnode
+from textnode import text_node_to_html_node, TextNode, TextType 
 from htmlnode import ParentNode
 from inline_markdown import text_to_textnodes
 
@@ -62,7 +62,7 @@ def block_to_block_type(markdown_block):
 
 def markdown_to_html_node(markdown):
     block_nodes = []
-    blocks = markdown_blocks(markdown)
+    blocks = markdown_to_blocks(markdown)
     for block in blocks:
         if block_to_block_type(block) == BlockType.PARAGRAPH:
             split_lines = block.split("\n")
