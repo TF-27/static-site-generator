@@ -2,10 +2,11 @@ from textnode import TextNode, TextType
 import os
 import shutil
 from markdown_blocks import markdown_to_html_node
+import pathlib
 
 def main():
     copy_static_to_main("static", "public")
-    generate_page("content/index.md","template.html","public/index.html")
+    generate_pages_recursive("content","template.html","public")
 
 
 def copy_static_to_main(content_path, destination_path):
@@ -49,6 +50,20 @@ def generate_page(from_path, template_path, dest_path):
         os.makedirs(os.path.dirname(dest_path), exist_ok=True)
     with open(dest_path, "w") as f:
         f.write(template)
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    content = os.listdir(dir_path_content)
+    for item in content:
+        item_path = os.path.join(dir_path_content, item)
+        print(f"ITEM PATH: {item_path}")
+        if os.path.isfile(item_path):
+            if pathlib.Path(item_path).suffix == ".md":
+                generate_page(item_path, template_path, os.path.join(dest_dir_path, item.replace(".md", ".html")))
+        elif os.path.isdir(item_path):
+            generate_pages_recursive(item_path, template_path, os.path.join(dest_dir_path, item))
+    
+
+
 
 
     
